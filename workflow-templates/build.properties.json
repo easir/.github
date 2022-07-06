@@ -2,8 +2,7 @@
     "name": "Build image",
     "description": "workflow to build images of apps",
     "categories": [
-        "php",
-        "angular"
+        "php"
     ],
     "filePatterns": [
         "package.json$",
