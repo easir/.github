@@ -10,6 +10,7 @@ jobs:
     - uses: actions/checkout@v3
     - name: fetch npmrc if needed
       if: ${npmrc} == "true"
+      run: echo ${{ secrets.NPMRC }} > ./.npmrc
     - name: Build the Docker image
       run: |
         TAG=$(date +%s)
