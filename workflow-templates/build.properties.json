@@ -1,0 +1,13 @@
+{
+    "name": "Build image",
+    "description": "workflow to build images of apps",
+    "categories": [
+        "php",
+        "angular"
+    ],
+    "filePatterns": [
+        "package.json$",
+        "^Dockerfile",
+        ".*\\.md$"
+    ]
+}
