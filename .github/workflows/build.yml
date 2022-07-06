@@ -8,6 +8,8 @@ jobs:
     runs-on: self-hosted
     steps:
     - uses: actions/checkout@v3
+    - name: fetch npmrc if needed
+      if: ${npmrc} == "true"
     - name: Build the Docker image
       run: |
         TAG=$(date +%s)
