@@ -20,4 +20,4 @@ jobs:
     - name: Build the Docker image
       run: |
         TAG=$(date +%s)
-        docker build . --file Dockerfile --tag my-image-name:$TAG
+        docker build . --file Dockerfile --tag my-image-name:$TAG --network=host
