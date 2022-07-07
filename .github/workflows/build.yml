@@ -13,7 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: fetch npmrc if needed
-      if: ${{ inputs.npmrc == "true" }}
+      if: ${{ inputs.npmrc == 'true' }}
       run: echo ${{ secrets.NPMRC }} > ./.npmrc
     - name: Build the Docker image
       run: |
