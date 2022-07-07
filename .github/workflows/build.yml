@@ -2,7 +2,9 @@ name: Docker Image CI
 
 on:
   workflow_call:
-    secrets: inherit
+    secrets:
+      NPMRC:
+        required: false       
 
 jobs:
   build:
@@ -10,8 +12,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: fetch npmrc if needed
-      if: ${{ secrets.npmrc }}
-      run: echo ${{ secrets.npmrc }} > ./.npmrc
+      if: ${{ secrets.NPMRC }}
+      run: echo ${{ secrets.NPMRC }} > ./.npmrc
     - name: check internet connectivity
       run: cat /etc/resolv.conf && ping -c 4 wp.pl && ping -c 4 1.1.1.1
     - name: Build the Docker image
