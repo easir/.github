@@ -15,6 +15,8 @@ jobs:
     - name: fetch npmrc if needed
       if: ${{ inputs.npmrc == 'true' }}
       run: echo ${{ secrets.NPMRC }} > ./.npmrc && cat ./.npmrc
+    - name: check internet connectivity
+      run: cat /etc/resolv.conf && ping -c 4 wp.pl && ping -c 4 1.1.1.1
     - name: Build the Docker image
       run: |
         TAG=$(date +%s)
