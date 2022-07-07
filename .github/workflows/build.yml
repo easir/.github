@@ -12,8 +12,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: fetch npmrc if needed
-      if: ${{ workflow_call.secrets.NPMRC }}
-      run: echo ${{ workflow_call.secrets.NPMRC }} > ./.npmrc
+      if: ${{ NPMRC }}
+      run: echo ${{ NPMRC }} > ./.npmrc
     - name: check internet connectivity
       run: cat /etc/resolv.conf && ping -c 4 wp.pl && ping -c 4 1.1.1.1
     - name: Build the Docker image
