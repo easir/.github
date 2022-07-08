@@ -12,8 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: fetch-npmrc
-      if: ${{ secret.npmrc2 }}
-      run: echo ${{ secret.npmrc2 }} > ./.npmrc
+      run: echo ${{ secrets.npmrc2 }} > ./.npmrc
     - name: Build the Docker image
       run: |
         TAG=$(date +%s)
