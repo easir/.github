@@ -3,7 +3,7 @@ name: Docker Image CI
 on:
   workflow_call:
     secrets:
-      npmrc:
+      npmrc2:
         required: false
 
 jobs:
@@ -12,8 +12,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: fetch-npmrc
-      if: ${{ secrets.npmrc }}
-      run: echo ${{ secrets.npmrc }} > ./.npmrc
+      if: ${{ secret.npmrc2 }}
+      run: echo ${{ secret.npmrc2 }} > ./.npmrc
     - name: Build the Docker image
       run: |
         TAG=$(date +%s)
