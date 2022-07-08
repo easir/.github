@@ -5,6 +5,7 @@ on:
     inputs:
       npmrc:
         required: false
+        type: string
 
 jobs:
   build:
