@@ -3,8 +3,12 @@ name: Docker Image CI
 on:
   workflow_call:
     secrets:
-      npmrc2:
+      npmrc:
         required: false
+      DOCKER_PASSWORD:
+        required: true
+      DOCKER_LOGIN:
+        required: true
 
 jobs:
   build:
@@ -14,11 +18,12 @@ jobs:
     - name: nasty hack to evaluate if secret is passed to the workflow
     # this uses a secret as an output to properly evalueate if it's even set!
       id: nasty_hack
-      run : echo '::set-output name=npmrc::${{secrets.npmrc2}}'
+      run : echo '::set-output name=npmrc::${{secrets.npmrc}}'
     - name: setup-npmrc
       if: ${{ steps.nasty_hack.outputs.npmrc }}
       run: echo ${{ steps.nasty_hack.outputs.npmrc }} > ./.npmrc
     - name: Build the Docker image
       run: |
         TAG=$(date +%s)
+        docker login -u=${{ secrets.DOCKER_LOGIN }} -p=${{ secrets.DOCKER_PASSWORD }}
         docker build . --file Dockerfile --tag my-image-name:$TAG --network=host
