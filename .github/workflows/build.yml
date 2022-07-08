@@ -3,19 +3,17 @@ name: Docker Image CI
 on:
   workflow_call:
     secrets:
-      NPMRC:
-        required: false       
+      npmrc:
+        required: false
 
 jobs:
   build:
     runs-on: self-hosted
     steps:
     - uses: actions/checkout@v3
-    - name: fetch npmrc if needed
-      if: ${{ NPMRC }}
-      run: echo ${{ NPMRC }} > ./.npmrc
-    - name: check internet connectivity
-      run: cat /etc/resolv.conf && ping -c 4 wp.pl && ping -c 4 1.1.1.1
+    - name: fetch-npmrc
+      if: ${{ secrets.npmrc }}
+      run: echo ${{ secrets.npmrc }} > ./.npmrc
     - name: Build the Docker image
       run: |
         TAG=$(date +%s)
