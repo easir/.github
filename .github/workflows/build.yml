@@ -29,5 +29,5 @@ jobs:
     - name: Build the Docker image
       run: |
         TAG=$(date +%s)
-        docker login -u=${{ secrets.DOCKER_LOGIN }} -p=${{ secrets.DOCKER_PASSWORD }} {{ $inputs.DOCKER_REGISTRY_URL }}
+        docker login -u=${{ secrets.DOCKER_LOGIN }} -p=${{ secrets.DOCKER_PASSWORD }} ${{ inputs.DOCKER_REGISTRY_URL }}
         docker build . --file Dockerfile --tag my-image-name:$TAG --network=host
