@@ -2,6 +2,10 @@ name: Docker Image CI
 
 on:
   workflow_call:
+    inputs:
+      DOCKER_REGISTRY_URL:
+        required: true
+        type: string
     secrets:
       npmrc:
         required: false
@@ -25,5 +29,5 @@ jobs:
     - name: Build the Docker image
       run: |
         TAG=$(date +%s)
-        docker login -u=${{ secrets.DOCKER_LOGIN }} -p=${{ secrets.DOCKER_PASSWORD }}
+        docker login -u=${{ secrets.DOCKER_LOGIN }} -p=${{ secrets.DOCKER_PASSWORD }} {{ $inputs.DOCKER_REGISTRY_URL }}
         docker build . --file Dockerfile --tag my-image-name:$TAG --network=host
