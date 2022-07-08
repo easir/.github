@@ -11,9 +11,13 @@ jobs:
     runs-on: self-hosted
     steps:
     - uses: actions/checkout@v3
-    - name: fetch-npmrc
-      if: ${{ secrets.npmrc2 != "" }}
-      run: echo ${{ secrets.npmrc2 }} > ./.npmrc
+    - name: nasty hack to evaluate if secret is passed to the workflow
+    # this uses a secret as an output to properly evalueate if it's even set!
+      id: nasty_hack
+      run : echo '::set-output name=npmrc::${{secrets.npmrc2}}'
+    - name: setup-npmrc
+      if: ${{ steps.nasty_hack.outputs.npmrc }}
+      run: echo ${{ steps.nasty_hack.outputs.npmrc }} > ./.npmrc
     - name: Build the Docker image
       run: |
         TAG=$(date +%s)
